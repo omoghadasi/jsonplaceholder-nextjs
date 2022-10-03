@@ -1,7 +1,18 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import Footer from "../components/Footer";
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar";
+import StatAll from "../components/StatAll";
 
 export default function Home() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <>
+      <div className="container mx-auto">
+        <Navbar />
+        <Hero />
+        <StatAll />
+        <Footer />
+      </div>
+    </>
+  );
 }
