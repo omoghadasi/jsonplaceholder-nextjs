@@ -1,4 +1,8 @@
+import Link from "next/link";
+import { useState } from "react";
 function Navbar() {
+  const [darkToggle, setDarkToggle] = useState(false);
+  console.log(darkToggle);
   return (
     <div className="navbar bg-primary text-primary-content rounded-lg my-4">
       <div className="navbar-start">
@@ -24,34 +28,48 @@ function Navbar() {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a>Posts</a>
+              <Link href="/posts">
+                <a>Posts</a>
+              </Link>
             </li>
             <li>
-              <a>Comments</a>
+              <Link href="/comments">
+                <a>Comments</a>
+              </Link>
             </li>
             <li>
-              <a>Albums</a>
+              <Link href="/albums">
+                <a>Albums</a>
+              </Link>
             </li>
             <li>
-              <a>Photos</a>
+              <Link href="/photos">
+                <a>Photos</a>
+              </Link>
             </li>
             <li>
-              <a>Todos</a>
+              <Link href="/todos">
+                <a>Todos</a>
+              </Link>
             </li>
             <li>
-              <a>Users</a>
+              <Link href="/users">
+                <a>Users</a>
+              </Link>
             </li>
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl">
-          jsonplaceholder example
-        </a>
+        <Link href="/">
+          <a className="btn btn-ghost normal-case text-xl">
+            jsonplaceholder example
+          </a>
+        </Link>
       </div>
       <div className="navbar-end">
         <label className="swap swap-rotate mr-3">
-          <input type="checkbox" />
+          <input type="checkbox" onClick={() => setDarkToggle(!darkToggle)} />
           <svg
             className="swap-on fill-current w-6 h-6"
             xmlns="http://www.w3.org/2000/svg"

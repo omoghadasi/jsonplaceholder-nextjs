@@ -6,13 +6,11 @@ import StatAll from "../components/StatAll";
 
 export default function Home() {
   return (
-    <>
-      <div className="container mx-auto">
-        <Navbar />
-        <Hero />
-        <StatAll />
-        <Footer />
-      </div>
-    </>
+    <div className="container mx-auto">
+      <Navbar />
+      <Hero />
+      <StatAll />
+      <Footer />
+    </div>
   );
 }

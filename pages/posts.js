@@ -1,5 +1,10 @@
+import Navbar from "./../components/Navbar";
 function posts() {
-  return <div>posts</div>;
+  return (
+    <div className="container mx-auto">
+      <Navbar />
+    </div>
+  );
 }
 
 export default posts;
