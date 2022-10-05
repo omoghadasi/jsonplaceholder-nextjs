@@ -1,31 +1,31 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
-import UserCard from "./UserCard";
+import CommentCard from "./CommentCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers, selectUserIds } from "../../slice/usersSlice";
+import { fetchAllComments, selectCommentIds } from "../../slice/commentsSlice";
 import { useEffect } from "react";
 import Link from "next/link";
-function UsersSlider() {
+function CommentsSlider() {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.users.status);
-  const error = useSelector((state) => state.users.error);
-  const userIds = useSelector(selectUserIds);
+  const status = useSelector((state) => state.comments.status);
+  const error = useSelector((state) => state.comments.error);
+  const commentIds = useSelector(selectCommentIds);
 
   useEffect(() => {
     if (status == "idle") {
-      dispatch(fetchAllUsers());
+      dispatch(fetchAllComments());
     }
   }, [dispatch, status]);
 
-  const lastUserIds = userIds.slice(0, 12);
+  const lastCommentIds = commentIds.slice(0, 12);
 
   let content;
   if (status == "loading") {
     content = <div>loading...</div>;
   } else if (status == "success") {
-    content = lastUserIds.map((id) => (
+    content = lastCommentIds.map((id) => (
       <SwiperSlide key={id}>
-        <UserCard userId={id} />
+        <CommentCard commentId={id} />
       </SwiperSlide>
     ));
   } else if (status == "error") {
@@ -33,23 +33,25 @@ function UsersSlider() {
   }
 
   return (
-    <section className="users-slider my-4">
+    <section className="comments-slider my-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="font-black text-4xl capitalize">latest users</h1>
-        <Link href="/users">
+        <h1 className="font-black text-4xl capitalize">latest comments</h1>
+        <Link href="/comments">
           <a className="btn btn-primary ">see more</a>
         </Link>
       </div>
       <div className="flex rounded-lg overflow-hidden">
         <Swiper
           spaceBetween={10}
-          slidesPerView={4}
+          slidesPerView={1.7}
+          loop={true}
+          centeredSlides={true}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
           }}
           modules={[Autoplay]}
-          className="usersSwiper"
+          className="commentsSwiper"
         >
           {content}
         </Swiper>
@@ -58,4 +60,4 @@ function UsersSlider() {
   );
 }
 
-export default UsersSlider;
+export default CommentsSlider;

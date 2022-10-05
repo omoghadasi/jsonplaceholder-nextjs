@@ -40,7 +40,7 @@ function PostsSlider() {
           <a className="btn btn-primary ">see more</a>
         </Link>
       </div>
-      <div className="flex">
+      <div className="flex rounded-lg overflow-hidden">
         <Swiper
           spaceBetween={10}
           slidesPerView={3}

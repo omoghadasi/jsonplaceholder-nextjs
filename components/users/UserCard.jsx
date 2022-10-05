@@ -4,7 +4,6 @@ import { selectUserById } from "../../slice/usersSlice";
 
 export default function UserCard({ userId }) {
   const user = useSelector((state) => selectUserById(state, userId));
-  console.log(user);
   return (
     <Link href={`users/${userId}`}>
       <a className="bg-base-200 p-4 rounded-lg flex flex-col justify-center items-center transition-all hover:bg-primary hover:text-white">

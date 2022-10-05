@@ -1,4 +1,5 @@
 import Head from "next/head";
+import CommentsSlider from "../components/comments/CommentsSlider";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
@@ -14,6 +15,7 @@ export default function Home() {
       <StatAll />
       <PostsSlider />
       <UsersSlider />
+      <CommentsSlider />
       <Footer />
     </div>
   );
