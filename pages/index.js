@@ -8,6 +8,7 @@ import PostsSlider from "../components/posts/PostsSlider";
 import StatAll from "../components/stat/AllStat";
 import UsersSlider from "../components/users/UsersSlider";
 import PhotosSlider from "../components/photos/PhotosSlider";
+import LatestTodo from "../components/todos/LatestTodo";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
           <AlbumsSlider />
         </div>
       </div>
+      <LatestTodo />
       <Footer />
     </div>
   );
