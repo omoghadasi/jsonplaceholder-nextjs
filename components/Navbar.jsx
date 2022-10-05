@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useState } from "react";
 function Navbar() {
   const [darkToggle, setDarkToggle] = useState(false);
-  console.log(darkToggle);
   return (
     <div className="navbar bg-primary text-primary-content rounded-lg my-4">
       <div className="navbar-start">
