@@ -18,7 +18,14 @@ export default function Home() {
       <StatAll />
       <PostsSlider />
       <UsersSlider />
-      <CommentsSlider />
+      <div className="flex justify-between items-start">
+        <div className="w-1/2 pr-5">
+          <LatestTodo />
+        </div>
+        <div className="w-1/2">
+          <CommentsSlider />
+        </div>
+      </div>
       <div className="flex justify-between items-start">
         <div className="w-2/3 pr-5">
           <PhotosSlider />
@@ -27,7 +34,6 @@ export default function Home() {
           <AlbumsSlider />
         </div>
       </div>
-      <LatestTodo />
       <Footer />
     </div>
   );

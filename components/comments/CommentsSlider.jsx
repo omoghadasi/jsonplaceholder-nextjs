@@ -17,7 +17,7 @@ function CommentsSlider() {
     }
   }, [dispatch, status]);
 
-  const lastCommentIds = commentIds.slice(0, 12);
+  const lastCommentIds = commentIds.slice(0, 6);
 
   let content;
   if (status == "loading") {
@@ -33,7 +33,7 @@ function CommentsSlider() {
   }
 
   return (
-    <section className="comments-slider my-20">
+    <section className="comments-slider">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-black text-4xl capitalize">latest comments</h1>
         <Link href="/comments">
@@ -43,7 +43,7 @@ function CommentsSlider() {
       <div className="flex rounded-lg overflow-hidden">
         <Swiper
           spaceBetween={10}
-          slidesPerView={1.7}
+          slidesPerView={1.5}
           loop={true}
           centeredSlides={true}
           autoplay={{

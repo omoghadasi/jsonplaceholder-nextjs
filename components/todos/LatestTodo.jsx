@@ -37,7 +37,7 @@ function LatestTodo() {
     }
   }, [dispatch, status]);
 
-  const lastTodoIds = todoIds.slice(0, 12);
+  const lastTodoIds = todoIds.slice(0, 3);
 
   let content;
   if (status == "loading") {
@@ -49,7 +49,7 @@ function LatestTodo() {
   }
 
   return (
-    <section className="todos-slider my-20">
+    <section className="todos-slider">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-black text-4xl capitalize">latest todos</h1>
         <Link href="/todos">
