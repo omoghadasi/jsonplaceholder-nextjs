@@ -33,7 +33,7 @@ function UsersSlider() {
   }
 
   return (
-    <section className="users-slider my-4">
+    <section className="users-slider my-20">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-black text-4xl capitalize">latest users</h1>
         <Link href="/users">

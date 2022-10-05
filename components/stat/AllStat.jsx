@@ -2,7 +2,7 @@ import SingleStat from "./SingleStat";
 
 function StatAll() {
   return (
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center my-20">
       <div className="stats shadow bg-neutral">
         <SingleStat />
         <SingleStat />

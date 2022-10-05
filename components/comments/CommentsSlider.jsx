@@ -33,7 +33,7 @@ function CommentsSlider() {
   }
 
   return (
-    <section className="comments-slider my-4">
+    <section className="comments-slider my-20">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-black text-4xl capitalize">latest comments</h1>
         <Link href="/comments">
