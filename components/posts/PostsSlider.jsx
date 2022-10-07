@@ -25,7 +25,7 @@ function PostsSlider() {
   } else if (status == "success") {
     content = lastPostIds.map((id) => (
       <SwiperSlide key={id}>
-        <PostCard postId={id} />
+        <PostCard postId={id} summaryCount={120} />
       </SwiperSlide>
     ));
   } else if (status == "error") {

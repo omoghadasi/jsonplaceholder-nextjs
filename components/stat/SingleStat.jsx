@@ -1,4 +1,37 @@
-function SingleStat() {
+import { useSelector } from "react-redux";
+import { selectPostIds } from "./../../slice/postsSlice";
+import { selectAlbumIds } from "./../../slice/albumsSlice";
+import { selectCommentIds } from "./../../slice/commentsSlice";
+import { selectPhotoIds } from "./../../slice/photosSlice";
+import { selectTodoIds } from "./../../slice/todosSlice";
+import { selectUserIds } from "./../../slice/usersSlice";
+
+function SingleStat({ entitie }) {
+  let item;
+  switch (entitie) {
+    case "posts":
+      item = useSelector(selectPostIds);
+      break;
+    case "comments":
+      item = useSelector(selectCommentIds);
+      break;
+    case "users":
+      item = useSelector(selectUserIds);
+      break;
+    case "todos":
+      item = useSelector(selectTodoIds);
+      break;
+    case "photos":
+      item = useSelector(selectPhotoIds);
+      break;
+    case "albums":
+      item = useSelector(selectAlbumIds);
+      break;
+
+    default:
+      item = null;
+      break;
+  }
   return (
     <div className="stat">
       <div className="stat-figure text-secondary">
@@ -16,8 +49,8 @@ function SingleStat() {
           ></path>
         </svg>
       </div>
-      <div className="stat-title">Posts</div>
-      <div className="stat-value">31K</div>
+      <div className="stat-title uppercase">{entitie}</div>
+      <div className="stat-value">{item ? item.length : 0}</div>
     </div>
   );
 }
