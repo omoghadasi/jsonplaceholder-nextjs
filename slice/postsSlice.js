@@ -26,6 +26,18 @@ export const fetchAllPosts = createAsyncThunk(
   }
 );
 
+export const fetchSinglePostById = createAsyncThunk(
+  "posts/fetchSinglePostById",
+  async (postId) => {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/posts/${postId}`
+    );
+    if (response.status == 200) {
+      return response.data;
+    }
+  }
+);
+
 // create a slice
 export const posts = createSlice({
   name: "posts",
@@ -42,6 +54,9 @@ export const posts = createSlice({
     [fetchAllPosts.rejected]: (state, action) => {
       state.error = action.payload;
       state.status = "error";
+    },
+    [fetchSinglePostById.fulfilled]: (state, action) => {
+      postsAdapter.upsertOne(state, action.payload);
     },
   },
 });

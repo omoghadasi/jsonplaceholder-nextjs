@@ -16,8 +16,8 @@ function TodoRow({ todoId }) {
       <th>{todo.id}</th>
       <td>{todo.title}</td>
       <td>
-        <Link href={`users/${user.id}`}>
-          <a>@{user.username}</a>
+        <Link href={`users/${user ? user.id : null}`}>
+          <a>@{user ? user.username : null}</a>
         </Link>
       </td>
       <td>{todo.completed ? "completed" : "pending"}</td>
@@ -41,11 +41,19 @@ function LatestTodo() {
 
   let content;
   if (status == "loading") {
-    content = <div>loading...</div>;
+    content = (
+      <tr>
+        <td>loading...</td>
+      </tr>
+    );
   } else if (status == "success") {
     content = lastTodoIds.map((id) => <TodoRow key={id} todoId={id} />);
   } else if (status == "error") {
-    content = <div>{error}</div>;
+    content = (
+      <tr>
+        <td>{error}</td>
+      </tr>
+    );
   }
 
   return (

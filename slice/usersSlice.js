@@ -15,10 +15,22 @@ const initialState = usersAdapter.getInitialState({
 });
 
 export const fetchAllUsers = createAsyncThunk(
-  "Users/fetchAllUsers",
+  "users/fetchAllUsers",
   async () => {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/users"
+    );
+    if (response.status == 200) {
+      return response.data;
+    }
+  }
+);
+
+export const fetchSingleUserById = createAsyncThunk(
+  "users/fetchSingleUserById",
+  async (postId) => {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/users/${postId}`
     );
     if (response.status == 200) {
       return response.data;
@@ -42,6 +54,9 @@ export const users = createSlice({
     [fetchAllUsers.rejected]: (state, action) => {
       state.error = action.payload;
       state.status = "error";
+    },
+    [fetchSingleUserById.fulfilled]: (state, action) => {
+      usersAdapter.upsertOne(state, action.payload);
     },
   },
 });

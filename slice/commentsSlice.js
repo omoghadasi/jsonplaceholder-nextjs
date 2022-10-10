@@ -7,8 +7,11 @@ import axios from "axios";
 
 const commentsAdapter = createEntityAdapter();
 
-export const { selectById: selectCommentById, selectIds: selectCommentIds } =
-  commentsAdapter.getSelectors((state) => state.comments);
+export const {
+  selectById: selectCommentById,
+  selectIds: selectCommentIds,
+  selectAll: selectAllComments,
+} = commentsAdapter.getSelectors((state) => state.comments);
 const initialState = commentsAdapter.getInitialState({
   status: "idle",
   error: null,
