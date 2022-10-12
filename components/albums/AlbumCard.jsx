@@ -1,15 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAlbumById } from "../../slice/albumsSlice";
-import { selectPhotoByAlbumId } from "../../slice/photosSlice";
+import {
+  selectPhotoByAlbumId,
+  fetchPhotosByAlbumId,
+} from "../../slice/photosSlice";
 import AlbumUser from "./AlbumUser";
 
 export default function AlbumCard({ albumId }) {
+  const dispatch = useDispatch();
   const album = useSelector((state) => selectAlbumById(state, albumId));
   const albumPhotos = useSelector((state) =>
     selectPhotoByAlbumId(state, albumId)
   );
+  useEffect(() => {
+    if (!albumPhotos.length && album.id) {
+      dispatch(fetchPhotosByAlbumId(album.id));
+    }
+  }, [album.id, albumPhotos.length, dispatch]);
+
   const albumPhotosSlice = albumPhotos.slice(0, 6);
   const content = albumPhotosSlice.map((photo) => (
     <img

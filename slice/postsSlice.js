@@ -2,13 +2,23 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const postsAdapter = createEntityAdapter();
 
-export const { selectById: selectPostById, selectIds: selectPostIds } =
-  postsAdapter.getSelectors((state) => state.posts);
+export const {
+  selectById: selectPostById,
+  selectIds: selectPostIds,
+  selectAll: selectAllPosts,
+} = postsAdapter.getSelectors((state) => state.posts);
+
+export const selectPostsByUserId = createSelector(
+  selectAllPosts,
+  (state, userId) => userId,
+  (posts, userId) => posts.filter((post) => post.userId === userId)
+);
 const initialState = postsAdapter.getInitialState({
   status: "idle",
   error: null,
@@ -38,6 +48,18 @@ export const fetchSinglePostById = createAsyncThunk(
   }
 );
 
+export const fetchPostsByUserId = createAsyncThunk(
+  "posts/fetchPostsByUserId",
+  async (userId) => {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+    );
+    if (response.status == 200) {
+      return response.data;
+    }
+  }
+);
+
 // create a slice
 export const posts = createSlice({
   name: "posts",
@@ -57,6 +79,9 @@ export const posts = createSlice({
     },
     [fetchSinglePostById.fulfilled]: (state, action) => {
       postsAdapter.upsertOne(state, action.payload);
+    },
+    [fetchPostsByUserId.fulfilled]: (state, action) => {
+      postsAdapter.upsertMany(state, action.payload);
     },
   },
 });

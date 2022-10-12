@@ -2,13 +2,24 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const albumsAdapter = createEntityAdapter();
 
-export const { selectById: selectAlbumById, selectIds: selectAlbumIds } =
-  albumsAdapter.getSelectors((state) => state.albums);
+export const {
+  selectById: selectAlbumById,
+  selectIds: selectAlbumIds,
+  selectAll: selectAllAlbums,
+} = albumsAdapter.getSelectors((state) => state.albums);
+
+export const selectAlbumsByUserId = createSelector(
+  selectAllAlbums,
+  (state, userId) => userId,
+  (albums, userId) => albums.filter((album) => album.userId === userId)
+);
+
 const initialState = albumsAdapter.getInitialState({
   status: "idle",
   error: null,
@@ -19,6 +30,18 @@ export const fetchAllAlbums = createAsyncThunk(
   async () => {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/albums"
+    );
+    if (response.status == 200) {
+      return response.data;
+    }
+  }
+);
+
+export const fetchAlbumsByUserId = createAsyncThunk(
+  "Albums/fetchAlbumsByUserId",
+  async (userId) => {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/albums?userId=${userId}`
     );
     if (response.status == 200) {
       return response.data;
@@ -42,6 +65,9 @@ export const albums = createSlice({
     [fetchAllAlbums.rejected]: (state, action) => {
       state.error = action.payload;
       state.status = "error";
+    },
+    [fetchAlbumsByUserId.fulfilled]: (state, action) => {
+      albumsAdapter.upsertMany(state, action.payload);
     },
   },
 });

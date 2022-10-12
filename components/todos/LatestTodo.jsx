@@ -8,7 +8,7 @@ import {
 import { selectUserById } from "../../slice/usersSlice";
 import Link from "next/link";
 
-function TodoRow({ todoId }) {
+export function TodoRow({ todoId }) {
   const todo = useSelector((state) => selectTodoById(state, todoId));
   const user = useSelector((state) => selectUserById(state, todo.userId));
   return (

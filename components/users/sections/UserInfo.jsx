@@ -1,36 +1,34 @@
 import React from "react";
 
-export default function UserInfo() {
+export default function UserInfo({ user }) {
+  const address = user.address;
+  const company = user.company;
   return (
     <div className="bg-base-200 p-4 rounded-lg">
       <div className="flex gap-4 flex-wrap">
-        <span className="w-[32%]">id: 10000</span>
-        <span className="w-[32%]">name: ali</span>
-        <span className="w-[32%]">username: akbar</span>
-        <span className="w-[32%]">email: omoghadasi@gmail.com</span>
-        <span className="w-[32%]">phone: 0913642451</span>
-        <span className="w-[32%]">website: http://mrjunior.ir</span>
+        <span className="w-[32%]">id: {user.id}</span>
+        <span className="w-[32%]">name: {user.name}</span>
+        <span className="w-[32%]">username: {user.username}</span>
+        <span className="w-[32%]">email: {user.email}</span>
+        <span className="w-[32%]">phone: {user.phone}</span>
+        <span className="w-[32%]">website: {user.website}</span>
       </div>
-      <div
-        tabIndex={0}
-        className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
-      >
-        <div className="collapse-title text-xl font-medium">
-          Address: this is test
+      <div className="flex gap-4 items-start mt-4">
+        <div className="flex-grow bg-base-300 p-4 rounded-lg">
+          <h1 className="font-bold">Address</h1>
+          <ul>
+            <li>Street: {address.street}</li>
+            <li>Suite: {address.suite}</li>
+            <li>City: {address.city}</li>
+          </ul>
         </div>
-        <div className="collapse-content">
-          <p>tabIndex={0} attribute is necessary to make the div focusable</p>
-        </div>
-      </div>
-      <div
-        tabIndex={1}
-        className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
-      >
-        <div className="collapse-title text-xl font-medium">
-          company: this is test
-        </div>
-        <div className="collapse-content">
-          <p>tabIndex={1} attribute is necessary to make the div focusable</p>
+        <div className="flex-grow bg-base-300 p-4 rounded-lg">
+          <h1 className="font-bold">Company</h1>
+          <ul>
+            <li>Name: {company.name}</li>
+            <li>Catch Phrase: {company.catchPhrase}</li>
+            <li>BS: {company.bs}</li>
+          </ul>
         </div>
       </div>
     </div>

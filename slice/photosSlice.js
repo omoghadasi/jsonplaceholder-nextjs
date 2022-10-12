@@ -37,6 +37,18 @@ export const fetchAllPhotos = createAsyncThunk(
   }
 );
 
+export const fetchPhotosByAlbumId = createAsyncThunk(
+  "photos/fetchPhotosByAlbumId",
+  async (albumId) => {
+    const response = await axios.get(
+      `https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`
+    );
+    if (response.status == 200) {
+      return response.data;
+    }
+  }
+);
+
 // create a slice
 export const photos = createSlice({
   name: "photos",
@@ -53,6 +65,9 @@ export const photos = createSlice({
     [fetchAllPhotos.rejected]: (state, action) => {
       state.error = action.payload;
       state.status = "error";
+    },
+    [fetchPhotosByAlbumId.fulfilled]: (state, action) => {
+      photosAdapter.upsertMany(state, action.payload);
     },
   },
 });
