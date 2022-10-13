@@ -4,7 +4,8 @@ import {
   createEntityAdapter,
   createSelector,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import NProgress from "nprogress";
+import { req } from "../lib/client";
 
 const todosAdapter = createEntityAdapter();
 
@@ -27,23 +28,25 @@ const initialState = todosAdapter.getInitialState({
 export const fetchAllTodos = createAsyncThunk(
   "Todos/fetchAllTodos",
   async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos"
-    );
+    NProgress.start();
+    const response = await req.get("todos");
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 export const fetchTodosByUserId = createAsyncThunk(
   "Todos/fetchTodosByUserId",
   async (userId) => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/todos?userId=${userId}`
-    );
+    NProgress.start();
+    const response = await axios.get(`todos?userId=${userId}`);
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 

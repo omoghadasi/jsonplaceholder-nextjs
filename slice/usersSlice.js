@@ -3,7 +3,8 @@ import {
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import NProgress from "nprogress";
+import { req } from "../lib/client";
 
 const usersAdapter = createEntityAdapter();
 
@@ -17,24 +18,26 @@ const initialState = usersAdapter.getInitialState({
 export const fetchAllUsers = createAsyncThunk(
   "users/fetchAllUsers",
   async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
+    NProgress.start();
+    const response = await req.get("users");
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 
 export const fetchSingleUserById = createAsyncThunk(
   "users/fetchSingleUserById",
   async (postId) => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${postId}`
-    );
+    NProgress.start();
+    const response = await req.get(`users/${postId}`);
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 

@@ -4,7 +4,8 @@ import {
   createEntityAdapter,
   createSelector,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import NProgress from "nprogress";
+import { req } from "../lib/client";
 
 const postsAdapter = createEntityAdapter();
 
@@ -27,36 +28,39 @@ const initialState = postsAdapter.getInitialState({
 export const fetchAllPosts = createAsyncThunk(
   "posts/fetchAllPosts",
   async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
+    NProgress.start();
+    const response = await req.get("posts");
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 
 export const fetchSinglePostById = createAsyncThunk(
   "posts/fetchSinglePostById",
   async (postId) => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts/${postId}`
-    );
+    NProgress.start();
+    const response = await req.get(`posts/${postId}`);
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 
 export const fetchPostsByUserId = createAsyncThunk(
   "posts/fetchPostsByUserId",
   async (userId) => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-    );
+    NProgress.start();
+    const response = await req.get(`posts?userId=${userId}`);
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 

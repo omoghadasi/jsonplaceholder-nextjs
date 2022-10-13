@@ -3,7 +3,8 @@ import {
   createAsyncThunk,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import NProgress from "nprogress";
+import { req } from "../lib/client";
 
 const commentsAdapter = createEntityAdapter();
 
@@ -20,12 +21,13 @@ const initialState = commentsAdapter.getInitialState({
 export const fetchAllComments = createAsyncThunk(
   "Comments/fetchAllComments",
   async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/comments"
-    );
+    NProgress.start();
+    const response = await req.get("comments");
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 

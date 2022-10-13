@@ -4,7 +4,8 @@ import {
   createEntityAdapter,
   createSelector,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import NProgress from "nprogress";
+import { req } from "../lib/client";
 
 const photosAdapter = createEntityAdapter();
 
@@ -28,24 +29,26 @@ const initialState = photosAdapter.getInitialState({
 export const fetchAllPhotos = createAsyncThunk(
   "photos/fetchAllPhotos",
   async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/photos"
-    );
+    NProgress.start();
+    const response = await req.get("photos");
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 
 export const fetchPhotosByAlbumId = createAsyncThunk(
   "photos/fetchPhotosByAlbumId",
   async (albumId) => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`
-    );
+    NProgress.start();
+    const response = await axios.get(`photos?albumId=${albumId}`);
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 

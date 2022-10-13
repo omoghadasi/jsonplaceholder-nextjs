@@ -5,6 +5,8 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 import axios from "axios";
+import NProgress from "nprogress";
+import { req } from "../lib/client";
 
 const albumsAdapter = createEntityAdapter();
 
@@ -28,24 +30,26 @@ const initialState = albumsAdapter.getInitialState({
 export const fetchAllAlbums = createAsyncThunk(
   "Albums/fetchAllAlbums",
   async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/albums"
-    );
+    NProgress.start();
+    const response = await req.get("albums");
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 
 export const fetchAlbumsByUserId = createAsyncThunk(
   "Albums/fetchAlbumsByUserId",
   async (userId) => {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/albums?userId=${userId}`
-    );
+    NProgress.start();
+    const response = await req.get(`albums?userId=${userId}`);
     if (response.status == 200) {
+      NProgress.done();
       return response.data;
     }
+    NProgress.done();
   }
 );
 
@@ -59,7 +63,7 @@ export const albums = createSlice({
       state.status = "loading";
     },
     [fetchAllAlbums.fulfilled]: (state, action) => {
-      albumsAdapter.upsertMany(state, action.payload);
+      albumsAdapter.addMany(state, action.payload);
       state.status = "success";
     },
     [fetchAllAlbums.rejected]: (state, action) => {
